@@ -5,8 +5,12 @@ interface CategoryListProps {
     text: string;
     link: string;
   };
+  onClick: (...args: any[]) => void;
 }
 
-export const CategoryList = ({ data }: CategoryListProps) => {
-  return <CategoryListElement>{data.text}</CategoryListElement>;
+export const CategoryList = ({ data, onClick }: CategoryListProps) => {
+  const handleCategorySelectedClick = () => {
+    onClick(data);
+  }
+  return <CategoryListElement onClick={handleCategorySelectedClick}>{data.text}</CategoryListElement>;
 };

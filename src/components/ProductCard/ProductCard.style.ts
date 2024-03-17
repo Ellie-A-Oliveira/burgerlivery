@@ -6,7 +6,8 @@ export const ProductCardElement = styled.div`
   flex-direction: column-reverse;
   flex-wrap: wrap;
   justify-content: flex-end;
-  max-width: 264px;
+  width: clamp(250px, 30%, 500px);
+  margin-bottom: 1rem;
   border-radius: 40px;
   background: ${colors.commom.white};
   box-shadow: 0px 4px 16px ${colors.secondary.main};
@@ -16,6 +17,7 @@ export const ProductCardElement = styled.div`
     height: 225px;
     border-top-left-radius: 28px;
     border-top-right-radius: 28px;
+    object-fit: cover;
   }
 `;
 

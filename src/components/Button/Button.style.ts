@@ -67,3 +67,8 @@ export const ButtonElement = styled.button<ButtonProps>`
     }
   `}
 `;
+
+export const ButtonGroup = styled.div`
+    display: flex;
+    flex-wrap: no-wrap;
+`;
