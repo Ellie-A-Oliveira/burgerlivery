@@ -1,5 +1,7 @@
 # Burgerlivery
 
+Application only works when running both client and server simultaneously.
+
 ## Burgerlivery Client
 
 Burgerlivery page in React (TS).
@@ -12,7 +14,7 @@ npm install
 npm run dev
 ```
 
-## Burgerlivery API
+## Burgerlivery Server
 
 Simple API REST Based to comunicate with Burgerlivery front-end application.
 
