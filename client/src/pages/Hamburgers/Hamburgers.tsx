@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Button, CategoryList, Layout, ProductCard } from "../../components";
+import { CategoryList, Layout } from "../../components";
 import { ProductCategories, ProductWrapper } from "./Hamburgers.style";
-import {
-  ProductCardContent,
-  ProductCardPrice,
-} from "../../components/ProductCard/ProductCard.style";
 import { ApiService } from "../../services/api.service";
-import { ButtonGroup } from "../../components/Button/Button.style";
+import Product from "../../components/Product/Product";
 
 interface Category {
   text: string;
@@ -40,7 +36,6 @@ export default function Hamburgers() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
-  const [selectedOption, setSelectedOption] = useState<"first" | "second">("first");
 
   const apiService = useRef(new ApiService());
 
@@ -73,20 +68,10 @@ export default function Hamburgers() {
   const handleCategorySelectedClick = (selectedCategory: Category) => {
     if (selectedCategory.link === "/combos") {
       fetchProducts("/hamburgers");
-      setSelectedOption("second");
     } else {
       fetchProducts(selectedCategory.link);
-      setSelectedOption("first");
     }
     setSelectedCategory(selectedCategory);
-  }
-
-  const onFirstOptionClick = () => {
-    setSelectedOption("first");
-  }
-
-  const onSecondOptionClick = () => {
-    setSelectedOption("second");
   }
 
   return (
@@ -99,37 +84,13 @@ export default function Hamburgers() {
       </ProductCategories>
       <ProductWrapper>
         {products ? products.map((product, index) => (
-          <ProductCard key={index}>
-            <ProductCardContent>
-              <h2>{selectedCategory?.link === "/combos" ? "COMBO ": ""}{product.title}</h2>
-              <p>{product.description}{selectedCategory?.link === "/combos" ? (<><br /><br /><span> + batata tradicional e bebida</span></>): ""}</p>
-              {!(selectedCategory?.link === "/hamburgers" ||
-                selectedCategory?.link === "/combos") &&
-                product.values?.[valueOptions[selectedCategory.link]?.["second"]] ?
-                <ButtonGroup>
-                  <Button onClick={onFirstOptionClick}>P</Button>
-                  <Button onClick={onSecondOptionClick}>G</Button>
-                </ButtonGroup> :
-                null
-              }
-              <Button onClick={() => {}}>Adicionar</Button>
-            </ProductCardContent>
-            <ProductCardPrice>
-              {priceFormat(
-                product.value
-                  ? product.value :
-                    product.values?.[valueOptions[selectedCategory.link]?.[selectedOption]]
-                    ?? product.values?.[valueOptions[selectedCategory.link]?.first]
-              )}
-            </ProductCardPrice>
-            <img src={
-              Array.isArray(product.image)
-                ? selectedCategory?.link === "/combos" ?
-                    product.image[1] :
-                    product.image[0] :
-                  product.image as string
-            } alt={product.title} />
-          </ProductCard>
+          <Product
+            selectedCategory={selectedCategory}
+            priceFormat={priceFormat}
+            product={product}
+            valueOptions={valueOptions}
+            key={index}
+          />
         )) : <p>Carregando...</p>}
       </ProductWrapper>
     </Layout>

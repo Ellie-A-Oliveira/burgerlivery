@@ -1,0 +1,79 @@
+import { useEffect, useState } from "react";
+import { ProductCard, Button } from "..";
+import { ButtonGroup } from "../Button/Button.style";
+import { ProductCardContent, ProductCardPrice } from "../ProductCard/ProductCard.style";
+
+interface ProductProps {
+  selectedCategory?: {
+    text: string;
+    link: string;
+  };
+  product: {
+    image: Array<string> | string;
+    title: string;
+    description: string;
+    values?: Record<string, number>;
+    value?: number;
+  };
+  valueOptions: any;
+  priceFormat: CallableFunction;
+}
+
+export default function Product({
+  selectedCategory,
+  product,
+  valueOptions,
+  priceFormat,
+}: ProductProps) {
+  const [selectedOption, setSelectedOption] = useState<"first" | "second">("first");
+
+  const onFirstOptionClick = () => {
+    setSelectedOption("first");
+  }
+
+  const onSecondOptionClick = () => {
+    setSelectedOption("second");
+  }
+
+  useEffect(() => {
+    if (selectedCategory?.link === "/combos") {
+      setSelectedOption("second");
+    } else {
+      setSelectedOption("first");
+    }
+  }, [selectedCategory])
+
+  return (
+    <ProductCard>
+      <ProductCardContent>
+        <h2>{selectedCategory?.link === "/combos" ? "COMBO ": ""}{product.title}</h2>
+        <p>{product.description}{selectedCategory?.link === "/combos" ? (<><br /><br /><span> + batata tradicional e bebida</span></>): ""}</p>
+        {!(selectedCategory?.link === "/hamburgers" ||
+          selectedCategory?.link === "/combos") &&
+          product.values?.[valueOptions[selectedCategory.link]?.["second"]] ?
+          <ButtonGroup>
+            <Button onClick={onFirstOptionClick}>P</Button>
+            <Button onClick={onSecondOptionClick}>G</Button>
+          </ButtonGroup> :
+          null
+        }
+        <Button onClick={() => {}}>Adicionar</Button>
+      </ProductCardContent>
+      <ProductCardPrice>
+        {priceFormat(
+          product.value
+            ? product.value :
+              product.values?.[valueOptions[selectedCategory.link]?.[selectedOption]]
+              ?? product.values?.[valueOptions[selectedCategory.link]?.first]
+        )}
+      </ProductCardPrice>
+      <img src={
+        Array.isArray(product.image)
+          ? selectedCategory?.link === "/combos" ?
+              product.image[1] :
+              product.image[0] :
+            product.image as string
+      } alt={product.title} />
+    </ProductCard>
+  )
+}
