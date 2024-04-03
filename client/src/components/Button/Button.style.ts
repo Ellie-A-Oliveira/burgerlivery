@@ -6,7 +6,7 @@ import { colors } from "../../styles/colors";
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   inverse?: boolean;
   size?: "large" | "small" | undefined;
-  variant?: "info" | "danger";
+  variant?: "info" | "danger" | "nostyle";
 }
 
 export const ButtonElement = styled.button<ButtonProps>`
@@ -64,6 +64,18 @@ export const ButtonElement = styled.button<ButtonProps>`
     color: white;
     &:hover {
       background-color: red
+    }
+  `}
+
+  ${(props) =>
+    props.variant === "nostyle" &&
+    `
+    background-color: transparent;
+    color: inherit;
+    border: none;
+
+    &:hover {
+      background-color: transparent;
     }
   `}
 `;

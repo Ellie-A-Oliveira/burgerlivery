@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProductCard, Button } from "..";
 import { ButtonGroup } from "../Button/Button.style";
 import { ProductCardContent, ProductCardPrice } from "../ProductCard/ProductCard.style";
+import { OrderContext } from "../../context/OrderContext";
 
 interface ProductProps {
   selectedCategory?: {
@@ -19,6 +20,14 @@ interface ProductProps {
   priceFormat: CallableFunction;
 }
 
+const orderPropMapping = {
+  "Entradinhas": "appettizer",
+  "Burgers": "hamburger",
+  "Combos": "combo",
+  "Sobremesas": "dessert",
+  "Bebidas": "beverage",
+};
+
 export default function Product({
   selectedCategory,
   product,
@@ -26,6 +35,7 @@ export default function Product({
   priceFormat,
 }: ProductProps) {
   const [selectedOption, setSelectedOption] = useState<"first" | "second">("first");
+  const orderContext = useContext(OrderContext);
 
   const onFirstOptionClick = () => {
     setSelectedOption("first");
@@ -33,6 +43,26 @@ export default function Product({
 
   const onSecondOptionClick = () => {
     setSelectedOption("second");
+  }
+
+  const handleAddProduct = () => {
+    const order = orderContext.order;
+    const value = product.value
+      ? product.value :
+        product.values?.[valueOptions[selectedCategory.link]?.[selectedOption]]
+        ?? product.values?.[valueOptions[selectedCategory.link]?.first];
+
+    const newProduct = { value: value!, title: product.title };
+        
+    orderContext.setOrder({
+      ...order,
+      [orderPropMapping[selectedCategory!.text]]: [
+        ...order[orderPropMapping[selectedCategory!.text]],
+        newProduct
+      ]
+    });
+
+    orderContext.setLastAddedItem(newProduct);
   }
 
   useEffect(() => {
@@ -57,7 +87,7 @@ export default function Product({
           </ButtonGroup> :
           null
         }
-        <Button onClick={() => {}}>Adicionar</Button>
+        <Button onClick={handleAddProduct}>Adicionar</Button>
       </ProductCardContent>
       <ProductCardPrice>
         {priceFormat(

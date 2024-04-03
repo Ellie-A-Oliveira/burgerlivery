@@ -3,6 +3,7 @@ import { CategoryList, Layout } from "../../components";
 import { ProductCategories, ProductWrapper } from "./Hamburgers.style";
 import { ApiService } from "../../services/api.service";
 import Product from "../../components/Product/Product";
+import { priceFormat } from "../../helper/priceFormat";
 
 interface Category {
   text: string;
@@ -43,13 +44,6 @@ export default function Hamburgers() {
     const response = await apiService.current.request<Product[]>(categoryLink);
     setProducts(response as Product[]);
   }
-
-  const priceFormat = (price: number) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(price);
-  };
 
   useEffect(() => {
     const fetchCategories = async () => {

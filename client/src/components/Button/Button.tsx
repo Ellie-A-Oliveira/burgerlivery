@@ -4,8 +4,8 @@ import { ButtonElement } from "./Button.style";
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   inverse?: boolean;
-  size?: "large" | "small" | undefined;
-  variant?: "info" | "danger" | undefined;
+  size?: "large" | "small";
+  variant?: "info" | "danger" | "nostyle";
   onClick: () => void;
 }
 
