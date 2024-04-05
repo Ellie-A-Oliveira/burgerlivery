@@ -17,8 +17,9 @@ export const colors = {
       main: "#C45317",
     },
   },
-  backgound: {
+  background: {
     main: "#E9E9E9",
+    toast: "#fff",
   },
   commom: {
     white: "#ffffff",

@@ -53,11 +53,13 @@ export default function Product({
         ?? product.values?.[valueOptions[selectedCategory.link]?.first];
 
     const newProduct = { value: value!, title: product.title };
+    const orderType = orderPropMapping[selectedCategory!.text];
+    const currentOrder = order[orderType];
         
     orderContext.setOrder({
       ...order,
-      [orderPropMapping[selectedCategory!.text]]: [
-        ...order[orderPropMapping[selectedCategory!.text]],
+      [orderType]: [
+        ...currentOrder,
         newProduct
       ]
     });

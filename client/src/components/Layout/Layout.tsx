@@ -1,4 +1,5 @@
 import { Header } from "..";
+import { ToastRoot } from "../ToastRoot/ToastRoot";
 import { LayoutWrapperElement } from "./Layout.style";
 
 interface LayoutProps {
@@ -10,6 +11,7 @@ export const Layout = ({ children }: LayoutProps) => {
     <>
       <Header />
       <LayoutWrapperElement>{children}</LayoutWrapperElement>
+      <ToastRoot />
     </>
   );
 };

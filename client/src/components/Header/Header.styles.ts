@@ -4,7 +4,7 @@ import { colors } from "../../styles/colors";
 
 export const HeaderElement = styled.header`
   padding: 16px 0;
-  background-color: ${colors.backgound.main};
+  background-color: ${colors.background.main};
 `;
 
 export const HeaderWrapperElement = styled.div`

@@ -1,9 +1,6 @@
 import { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
+import { OrderItem } from "../interfaces/OrderItem.interface";
 
-interface OrderItem {
-  title: string;
-  value: number;
-}
 
 interface Order {
   appettizer: OrderItem[],
@@ -34,7 +31,16 @@ const initialOrder = {
   totalValue: 0,
 }
 
-export const OrderContext = createContext<OrderContextProps>({});
+export const OrderContext = createContext<OrderContextProps>({
+  appettizerOrder: [],
+  setAppettizerOrder: () => {},
+  hamburgerOrder: [],
+  setHamburgerOrder: () => {},
+  order: initialOrder,
+  setOrder: () => {},
+  lastAddedItem: undefined,
+  setLastAddedItem: () => {},
+});
 
 interface OrderContextProviderProps {
   children: React.ReactNode;

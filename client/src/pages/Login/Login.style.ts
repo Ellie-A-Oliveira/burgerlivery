@@ -5,7 +5,7 @@ export const LoginWrapperElement = styled.div`
   display: flex;
   align-items: center;
   height: calc(100vh - 73px);
-  background-color: ${colors.backgound.main};
+  background-color: ${colors.background.main};
 `;
 
 export const LoginActionContentElement = styled.div`
