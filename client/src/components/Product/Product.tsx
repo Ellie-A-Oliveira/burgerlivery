@@ -52,7 +52,11 @@ export default function Product({
         product.values?.[valueOptions[selectedCategory.link]?.[selectedOption]]
         ?? product.values?.[valueOptions[selectedCategory.link]?.first];
 
-    const newProduct = { value: value!, title: product.title };
+    const newProduct = {
+      value: value!,
+      title: product.title,
+      size: valueOptions[selectedCategory.link]?.[selectedOption] ?? valueOptions[selectedCategory.link]?.first
+    };
     const orderType = orderPropMapping[selectedCategory!.text];
     const currentOrder = order[orderType];
         

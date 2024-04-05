@@ -4,10 +4,16 @@ import { ShoppingCartStyled } from "./ShoppingCart.style"
 import { OrderContext } from "../../context/OrderContext";
 import xIcon from "../../assets/x.svg";
 import { priceFormat } from "../../helper/priceFormat";
+import { OrderItem } from "../../interfaces/OrderItem.interface";
+import { sumValues } from "../../helper/sumValues";
 
 interface ShoppingCartProps {
   open: boolean;
   onCloseClick: () => void;
+}
+
+interface GroupedItems {
+  [key: string]: OrderItem[];
 }
 
 export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
@@ -22,7 +28,17 @@ export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
     ...order.hamburger
   ], [order]);
   
-  const [itemTypes, setItemTypes] = useState<any[]>([]);
+  const groupedItems = useMemo(() => {
+    const grouped: GroupedItems = {};
+    allOrders.forEach((item) => {
+      const title = `${item.title} (${item.size})`;
+      if (!grouped[title]) {
+        grouped[title] = [];
+      }
+      grouped[title].push(item);
+    });
+    return grouped;
+  }, [allOrders]);
 
   useEffect(() => {
     
@@ -41,8 +57,10 @@ export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
       </header>
       <section>
         <ul>
-          {allOrders.map((order, i) => (
-            <li key={i}>{priceFormat(order.value)}: {order.title}</li>
+          {Object.entries(groupedItems).map(([title, orders], i) => (
+            <li key={i}>
+              {title} x{orders.length}: {priceFormat(sumValues(orders.map((o) => o.value)))}
+            </li>
           ))}
         </ul>
         <p>Total: {priceFormat(order.totalValue)}</p>
