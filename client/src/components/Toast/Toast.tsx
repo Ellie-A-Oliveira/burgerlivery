@@ -13,6 +13,7 @@ export const Toast = ({ children, onClose }: ToastProps) => {
         <Button
           variant="nostyle"
           onClick={onClose}
+          size="small"
         >
           <img className="icon" src={xIcon} alt="" />
         </Button>

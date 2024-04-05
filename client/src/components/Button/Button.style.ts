@@ -10,9 +10,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const ButtonElement = styled.button<ButtonProps>`
+  ---size: 16px;
+
   padding: 16px 32px;
   border: 0;
-  font-size: 16px;
+  font-size: var(--size);
   font-weight: 600;
   border-radius: 22px;
   background-color: ${colors.primary.main};
@@ -36,15 +38,17 @@ export const ButtonElement = styled.button<ButtonProps>`
   ${(props) =>
     props.size === "small" &&
     `
+      --size: 14px;
       padding: 12px 24px;
-      font-size: 14px;
+      font-size: var(--size);
   `}
 
   ${(props) =>
     props.size === "large" &&
     `
+      --size: 16px;
       padding: 24px 32px;
-      font-size: 18px;
+      font-size: var(--size);
   `}
 
   ${(props) =>
@@ -73,6 +77,7 @@ export const ButtonElement = styled.button<ButtonProps>`
     background-color: transparent;
     color: inherit;
     border: none;
+    line-height: var(--size);
 
     &:hover {
       background-color: transparent;

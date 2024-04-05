@@ -4,7 +4,8 @@ import { colors } from "../../styles/colors";
 export const ToastStyled = styled.div`
     background-color: ${colors.background.toast};
     padding: .5rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 60px 1fr;
     align-items: center;
     justify-content: center;
     gap: .25rem;
@@ -12,8 +13,9 @@ export const ToastStyled = styled.div`
     box-shadow: 0px 4px 16px ${colors.secondary.main};
     
     .icon {
-        --size: 1.5rem;
+        --size: 1rem;
         width: var(--size);
         height: var(--size);
+        line-height: var(--size);
     }
 `
