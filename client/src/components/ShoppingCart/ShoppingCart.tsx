@@ -31,7 +31,10 @@ export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
   const groupedItems = useMemo(() => {
     const grouped: GroupedItems = {};
     allOrders.forEach((item) => {
-      const title = `${item.title} (${item.size})`;
+      let title = `${item.title}`;
+      if (item.size) {
+        title += ` (${item.size})`;
+      }
       if (!grouped[title]) {
         grouped[title] = [];
       }

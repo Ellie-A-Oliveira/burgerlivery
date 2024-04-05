@@ -13,7 +13,6 @@ export const ToastRoot = () => {
 
     useEffect(() => {
         if (lastAddedItem) {
-            console.log(lastAddedItem);
             setToasts([...toasts, lastAddedItem]);
             setTimeout(() => {
                 setToasts(currentToasts => {
