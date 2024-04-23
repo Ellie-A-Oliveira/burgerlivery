@@ -138,4 +138,30 @@ export const GlobalStyles = createGlobalStyle`
     margin-left: 24px;
     list-style-type: '-'
   }
+
+  .flex {
+    display: flex;
+  }
+
+  .space-between {
+    justify-content: space-between;
+  }
+
+  .align-center {
+    align-items: center;
+  }
+
+  .gap-3 {
+    gap: 1rem;
+  }
+  
+  .icon {
+    --size: 1.5rem;
+    width: var(--size);
+    height: var(--size);
+  }
+
+  .total {
+    margin-bottom: 1rem;
+  }
 `;

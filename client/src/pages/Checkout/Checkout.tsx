@@ -1,6 +1,4 @@
-import { useContext, useEffect, useMemo } from "react";
-import { Button } from "..";
-import { ShoppingCartStyled } from "./ShoppingCart.style"
+import { useContext, useMemo } from "react";
 import { OrderContext } from "../../context/OrderContext";
 import xIcon from "../../assets/x.svg";
 import minusIcon from "../../assets/minus-3108.svg";
@@ -8,17 +6,13 @@ import { priceFormat } from "../../helper/priceFormat";
 import { OrderItem } from "../../interfaces/OrderItem.interface";
 import { sumValues } from "../../helper/sumValues";
 import { useNavigate } from "react-router-dom";
-
-interface ShoppingCartProps {
-  open: boolean;
-  onCloseClick: () => void;
-}
+import { Button } from "../../components";
 
 interface GroupedItems {
   [key: string]: OrderItem[];
 }
 
-export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
+export default function Checkout() {
   const context = useContext(OrderContext);
   const handleNavigate = useNavigate();
   const order = context.order;
@@ -66,15 +60,9 @@ export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
   }
 
   return (
-    <ShoppingCartStyled open={open}>
+    <div>
       <header className="shopping-header">
-        <h3 className="shopping-title">Carrinho</h3>
-        <Button
-          variant="nostyle"
-          onClick={onCloseClick}
-        >
-          <img className="icon" src={xIcon} alt="" />
-        </Button>
+        <h3 className="shopping-title">Checkout</h3>
       </header>
       <section>
         <ul>
@@ -107,11 +95,11 @@ export const ShoppingCart = ({ open, onCloseClick }: ShoppingCartProps) => {
         <p className="total">Total: {priceFormat(order.totalValue)}</p>
         <Button
           variant="info"
-          onClick={() => handleNavigate("/checkout")}
+          onClick={() => null}
         >
-          Finalizar
+          Finalizar Compra
         </Button>
       </section>
-    </ShoppingCartStyled>
+    </div>
   )
 }

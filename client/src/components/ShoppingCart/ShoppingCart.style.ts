@@ -32,6 +32,10 @@ export const ShoppingCartStyled = styled.article<ShoppingCartStyledProps>`
     height: var(--size);
   }
 
+  .total {
+    margin-bottom: 1rem;
+  }
+
   ${(props) => props.open &&
     `
     transform: translateX(0);
