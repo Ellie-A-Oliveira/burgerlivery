@@ -6,7 +6,7 @@ import { priceFormat } from "../../helper/priceFormat";
 import { OrderItem } from "../../interfaces/OrderItem.interface";
 import { sumValues } from "../../helper/sumValues";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../components";
+import { Button, Layout } from "../../components";
 
 interface GroupedItems {
   [key: string]: OrderItem[];
@@ -60,6 +60,7 @@ export default function Checkout() {
   }
 
   return (
+    <Layout>
     <div>
       <header className="shopping-header">
         <h3 className="shopping-title">Checkout</h3>
@@ -101,5 +102,6 @@ export default function Checkout() {
         </Button>
       </section>
     </div>
+    </Layout>
   )
 }
