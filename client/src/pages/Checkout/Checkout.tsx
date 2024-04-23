@@ -59,6 +59,13 @@ export default function Checkout() {
     });
   }
 
+  const handleFinalizarCompra = () => {
+    console.log(
+        Object.values(order).flat().filter((o) => Number.isNaN(Number(o))),
+        order.totalValue
+    );
+  }
+
   return (
     <Layout>
     <div>
@@ -96,7 +103,7 @@ export default function Checkout() {
         <p className="total">Total: {priceFormat(order.totalValue)}</p>
         <Button
           variant="info"
-          onClick={() => null}
+          onClick={() => handleFinalizarCompra()}
         >
           Finalizar Compra
         </Button>
